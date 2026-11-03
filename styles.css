@@ -338,3 +338,38 @@ h2 { font-weight:600; font-size:25px; }
 }
 @media(min-width:520px) { .reading-card { grid-template-columns:200px 1fr; } }
 @media(max-width:345px) { .nav-link small{font-size:9px;} .reading-card{grid-template-columns:103px 1fr;gap:10px;} .tarot-card-art{height:200px;} }
+
+
+/* v4: The weekly glute ritual. Soft sea-glass + apricot, no harsh gym colours. */
+.glute-section { margin:0 0 24px; }
+.glute-section .glute-heading { margin:5px 0 8px; align-items:center; }
+.glute-heading h2 { font-family:Georgia,serif; font-weight:600; letter-spacing:-.025em; }
+.glute-heading h2 span { color:#bd7857; }
+.glute-frequency { font-size:9px; font-weight:800; letter-spacing:.1em; color:#487d79; padding:8px 10px; border-radius:100px; background:#e0f0e9; white-space:nowrap; }
+.glute-section-intro { color:#736b61; font-size:12px; line-height:1.5; margin:0 0 13px; }
+.glute-routine-list { display:grid; gap:11px; }
+.glute-routine-card { display:grid; grid-template-columns:86px minmax(0,1fr); gap:13px; padding:12px; background:#fffdf7; border:1px solid #e4e4d9; border-radius:22px; box-shadow:0 5px 19px #3657500a; }
+.glute-routine-card.is-today { border-color:#6cb6ad; background:#eef8f2; box-shadow:0 8px 20px #427f7520; }
+.glute-card-art { min-height:131px; border-radius:15px; position:relative; overflow:hidden; background:radial-gradient(circle at 55% 25%,#fce6c1 0 17%,transparent 18%), linear-gradient(155deg,#98cfca 0 50%,#e8b38d 51% 100%); display:flex; align-items:center; justify-content:center; }
+.glute-routine-card:nth-child(2) .glute-card-art { background:radial-gradient(circle at 42% 28%,#f8dfaf 0 17%,transparent 18%), linear-gradient(153deg,#e9c39f 0 52%,#85bcb5 53% 100%); }
+.glute-card-art:before { content:""; position:absolute; width:120px; height:130px; top:28px; left:-29px; transform:rotate(15deg); border:12px solid rgba(79,105,91,.22); border-left:0; border-bottom:0; border-radius:50%; }
+.glute-card-art:after { content:""; position:absolute; width:90px; height:35px; background:#4b796e25; left:7px; bottom:-7px; border-radius:50%; }
+.glute-card-art span { position:relative; z-index:1; font-size:43px; font-family:Georgia,serif; color:#3d716d; transform:rotate(-14deg); }
+.glute-routine-body { min-width:0; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; }
+.glute-routine-meta { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:1px 0 7px; }
+.glute-days { font-size:9px; letter-spacing:.1em; font-weight:850; color:#986d52; }
+.glute-today { font-size:9px; font-weight:850; border-radius:30px; background:#c3e5d8; color:#3b7065; padding:4px 6px; }
+.glute-routine-body h3 { font-size:17px; line-height:1.14; font-family:Georgia,serif; font-weight:600; color:#3a625b; margin:0 0 5px; }
+.glute-routine-body p { color:#7b7067; font-size:11px; line-height:1.42; margin:0 0 9px; }
+.glute-routine-actions { display:flex; flex-wrap:wrap; gap:7px; }
+.glute-watch,.glute-log { font-size:11px; font-weight:780; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; border-radius:11px; min-height:36px; padding:8px 10px; border:1px solid transparent; }
+.glute-watch { color:white; background:#497d75; }
+.glute-watch:hover,.glute-watch:focus-visible { background:#386963; }
+.glute-log { color:#7a5b48; background:#f7e6d5; border-color:#eed8c2; }
+.glute-section-workouts { margin-top:22px; margin-bottom:23px; padding:17px 13px; background:linear-gradient(145deg,#e8f4ee,#faf6ec); border:1px solid #dce9df; border-radius:23px; }
+.glute-section-workouts .glute-heading { margin:0 0 7px; }
+@media(max-width:375px) {
+ .glute-routine-card { grid-template-columns:75px minmax(0,1fr); gap:10px; padding:10px; }
+ .glute-watch,.glute-log { font-size:10px; padding:7px; }
+ .glute-routine-body h3 { font-size:16px; }
+}

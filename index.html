@@ -11,9 +11,9 @@
   <link rel="manifest" href="./manifest.json">
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./icons/icon-192.png">
-  <link rel="stylesheet" href="./styles.css">
-  <script src="./tarot-data.js" defer></script>
-  <script src="./app.js" defer></script>
+  <link rel="stylesheet" href="./styles.css?v=4">
+  <script src="./tarot-data.js?v=4" defer></script>
+  <script src="./app.js?v=4" defer></script>
   <title>Tiger Track</title>
 </head>
 <body>
@@ -37,6 +37,11 @@
           <div class="hero-mark" aria-hidden="true">☼</div><div class="hero-wave" aria-hidden="true"></div>
         </section>
         <div class="metrics" id="home-metrics" aria-live="polite"></div>
+        <section class="glute-section" aria-labelledby="home-glute-heading">
+          <div class="section-heading glute-heading"><div><p class="eyebrow">YOUR WEEKLY LITTLE RITUAL</p><h2 id="home-glute-heading">Glute glow <span aria-hidden="true">✳</span></h2></div><span class="glute-frequency">4 DAYS / WEEK</span></div>
+          <p class="glute-section-intro" id="home-glute-status">Your two go-to videos, ready when you are.</p>
+          <div id="home-glute-routines" class="glute-routine-list"></div>
+        </section>
         <section class="daily-ritual" aria-label="Daily tarot card">
           <div><p class="eyebrow">A MOMENT FOR YOURSELF</p><h2>Today's little ritual <span aria-hidden="true">✳</span></h2><p id="home-tarot-message">Pull a card and see what resonates today.</p></div>
           <button class="btn btn-sea" type="button" data-tab="tarot">Open tarot <span aria-hidden="true">↗</span></button>
@@ -50,6 +55,11 @@
       <section class="screen" id="screen-workouts" hidden aria-labelledby="workouts-title">
         <div class="page-heading"><p class="eyebrow">SOME DAYS WE FLY, SOME DAYS WE FLOW</p><h1 id="workouts-title">Movement<span class="dot">.</span></h1><p>Plan the session. Record what really happened.</p></div>
         <button class="btn btn-primary full-width" type="button" data-action="new-workout">+ Add a workout</button>
+        <section class="glute-section glute-section-workouts" aria-labelledby="workouts-glute-heading">
+          <div class="section-heading glute-heading"><div><p class="eyebrow">REPEAT EVERY WEEK</p><h2 id="workouts-glute-heading">Your glute routine <span aria-hidden="true">✳</span></h2></div></div>
+          <p class="glute-section-intro">Tap to open each video in YouTube, or log what you actually did afterwards.</p>
+          <div id="workouts-glute-routines" class="glute-routine-list"></div>
+        </section>
         <section class="run-plan-feature" aria-label="Eight week running plan">
           <div class="run-plan-feature-top"><div><p class="eyebrow">YOUR RUNNING CHALLENGE</p><h2>8 weeks, your way.</h2></div><span class="run-plan-tag">TWO RUNS / WEEK</span></div>
           <p>Speed on Tuesday or Wednesday. Long runs on Saturday or Sunday. Choose each week's days before adding the plan.</p>
@@ -158,6 +168,7 @@
     <p class="dialog-copy">Your data is saved in this browser on this device. It doesn't automatically sync to another phone, and clearing website data can erase it.</p>
     <div class="settings-actions"><button type="button" class="btn btn-primary" data-action="export-data">↓ Export backup (.json)</button><label class="btn btn-outline import-label">↑ Import backup<input type="file" id="import-file" accept="application/json,.json" hidden></label><button type="button" class="btn btn-danger" data-action="clear-data">Delete all saved data</button></div>
     <p class="helper">Export regularly and save the file in iCloud Drive or another safe location. Importing a backup replaces the current app data.</p>
+    <p class="helper">Tiger Track v4 · Weekly glute videos</p>
   </dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>

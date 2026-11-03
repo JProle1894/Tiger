@@ -1,7 +1,7 @@
 {
   "name": "Tiger Track \u00b7 movement & daily rituals",
   "short_name": "Tiger Track",
-  "description": "A cosy coastal-tiger journal for workouts, habits, running plans and daily tarot reflections.",
+  "description": "A cosy coastal-tiger journal for workouts, habits, running plans, daily tarot reflections and weekly glute workout links.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

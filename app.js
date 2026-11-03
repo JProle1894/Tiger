@@ -19,6 +19,14 @@ const RUN_WEEKS = [
   { speedLabel:'3–4 km', speedDistance:null, instructions:'Easy run + 3 × 20 sec strides', longDistance:25 }
 ];
 const RUN_PLAN_TYPE = 'eight-week-25k';
+// Monday/Friday routine and Tuesday/Saturday routine repeat weekly, without
+// creating duplicate workout records. Video URLs are the user's own choices.
+const GLUTE_ROUTINES = [
+  { id:'routine-one', title:'Glute routine 01', days:[1,5], daysLabel:'MON + FRI', dayText:'Monday & Friday',
+    url:'https://www.youtube.com/watch?v=T1cio6MJ7Fs', note:'Your first glute workout video.' },
+  { id:'routine-two', title:'Glute routine 02', days:[2,6], daysLabel:'TUE + SAT', dayText:'Tuesday & Saturday',
+    url:'https://www.youtube.com/watch?v=hDkhKi-5_sQ&t=397s', note:'Opens at 6:37, matching your saved link.' }
+];
 const $ = id => document.getElementById(id);
 const newId = () => (globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`);
 
@@ -159,6 +167,42 @@ function workoutCard(w, compact = false) {
     ? `<p class="workout-description"><strong>Exercises:</strong> ${w.exercises.map(x => `${esc(x.name)} (${esc(x.sets || '?')} × ${esc(x.reps || '?')}${x.weight !== '' && x.weight !== null ? ` @ ${esc(x.weight)} kg` : ''})`).join(' · ')}</p>` : '';
   return `<article class="workout-card" data-activity="${esc(w.type)}"><div class="workout-top"><div class="activity-icon" aria-hidden="true">${info.icon}</div><div class="workout-title"><strong>${esc(w.title)}</strong><small>${esc(info.label)} · ${esc(shortDate(w.date))}</small></div><span class="status ${w.status === 'completed' ? 'completed' : ''}">${w.status === 'completed' ? '✓ Done' : 'Planned'}</span></div>${desc}${exercises}${workoutPills(w)}<div class="workout-actions">${w.status !== 'completed' ? `<button type="button" data-action="mark-done" data-id="${esc(w.id)}">Log result</button>` : ''}<button type="button" data-action="edit-workout" data-id="${esc(w.id)}">Edit</button>${compact ? '' : `<button type="button" class="danger-link" data-action="remove-workout" data-id="${esc(w.id)}">Delete</button>`}</div></article>`;
 }
+function renderGluteRoutines() {
+  // new Date().getDay(): Sunday=0, Monday=1, ... Saturday=6.
+  const today = new Date().getDay();
+  const scheduled = GLUTE_ROUTINES.find(routine => routine.days.includes(today));
+  const homeStatus = $('home-glute-status');
+  homeStatus.textContent = scheduled
+    ? `Today is a ${scheduled.title.toLowerCase()} day. Your video is one tap away.`
+    : 'Your recurring weekly plan. Take a rest day or open either routine whenever you like.';
+  const markup = GLUTE_ROUTINES.map(routine => {
+    const isToday = routine.days.includes(today);
+    return `<article class="glute-routine-card ${isToday ? 'is-today' : ''}" aria-label="${esc(routine.title)}: ${esc(routine.dayText)}">
+      <div class="glute-card-art" aria-hidden="true"><span>✺</span></div>
+      <div class="glute-routine-body">
+        <div class="glute-routine-meta"><span class="glute-days">${esc(routine.daysLabel)}</span>${isToday ? '<span class="glute-today">TODAY ✷</span>' : ''}</div>
+        <h3>${esc(routine.title)}</h3>
+        <p>${esc(routine.note)}</p>
+        <div class="glute-routine-actions">
+          <a class="glute-watch" href="${esc(routine.url)}" target="_blank" rel="noopener noreferrer" aria-label="Watch ${esc(routine.title)} on YouTube (opens new tab)">▶ Watch video <span aria-hidden="true">↗</span></a>
+          <button type="button" class="glute-log" data-action="log-glute" data-routine="${esc(routine.id)}">+ Log workout</button>
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+  $('home-glute-routines').innerHTML = markup;
+  $('workouts-glute-routines').innerHTML = markup;
+}
+function openGluteWorkout(routineId) {
+  const routine = GLUTE_ROUTINES.find(x => x.id === routineId);
+  if (!routine) return;
+  openWorkout();
+  $('workout-type').value = 'weights';
+  $('workout-title').value = routine.title;
+  $('workout-status').value = 'completed';
+  $('workout-plan').value = `Follow ${routine.title} on YouTube:\n${routine.url}`;
+  typeFields();
+}
 function renderHome() {
   const today = localISO();
   $('today-label').textContent = new Intl.DateTimeFormat('en-GB',{weekday:'long',day:'numeric',month:'long'}).format(new Date());
@@ -220,7 +264,7 @@ function renderHistory() {
   const workouts = store.workouts.filter(w=>w.status === 'completed').sort((a,b)=>b.date.localeCompare(a.date));
   $('history-workouts').innerHTML = workouts.length ? `<div class="card-list">${workouts.map(w=>workoutCard(w,true)).join('')}</div>` : empty('▥','Your story starts here','Complete a workout and it will appear in your logbook.','+ Add workout','new-workout');
 }
-function render() { renderHome(); renderWorkouts(); renderRunPlanOverview(); renderHabits(); renderHistory(); renderTarot(); }
+function render() { renderHome(); renderGluteRoutines(); renderWorkouts(); renderRunPlanOverview(); renderHabits(); renderHistory(); renderTarot(); }
 
 function openRunPlan() {
   $('run-plan-form').reset();
@@ -383,6 +427,7 @@ function handleClick(event) {
   if (!button) return;
   const {action,id,date} = button.dataset;
   if (action === 'new-workout') openWorkout();
+  if (action === 'log-glute') openGluteWorkout(button.dataset.routine);
   if (action === 'new-run-plan') openRunPlan();
   if (action === 'draw-tarot') drawTarot();
   if (action === 'close-run-plan') $('run-plan-dialog').close();
