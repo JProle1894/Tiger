@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f9f5ec">
+  <meta name="description" content="Tiger Track, your cosy space for movement, habits and daily tarot.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Tiger Track">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./tarot-data.js" defer></script>
+  <script src="./app.js" defer></script>
+  <title>Tiger Track</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <img src="./icons/icon.svg" alt="" class="brand-icon" width="46" height="46">
+        <div><div class="brand-title">tiger<span>track</span></div><div class="brand-subtitle">THE ART OF SHOWING UP</div></div>
+      </div>
+      <button class="icon-button" type="button" data-action="settings" aria-label="Settings and backups" title="Settings and backups">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42M18.36 5.64l-1.42 1.42M7.06 16.94l-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg>
+      </button>
+    </header>
+
+    <main id="main">
+      <section class="screen" id="screen-home" aria-labelledby="home-title">
+        <div class="intro-row"><div><p class="eyebrow" id="today-label"></p><h1 id="home-title">A little more <em>you.</em></h1></div><div class="tiny-tiger" aria-hidden="true">✺</div></div>
+        <section class="hero" aria-label="Today's motivation">
+          <div class="hero-stripes" aria-hidden="true"></div>
+          <div class="hero-content"><div class="hero-tag">WELCOME TO YOUR LITTLE WORLD</div><h2>Move softly.<br><i>Live wildly.</i></h2><p>Your workouts, little rituals and everyday magic.</p><button class="btn btn-dark" type="button" data-action="new-workout">Plan some movement <span aria-hidden="true">↗</span></button></div>
+          <div class="hero-mark" aria-hidden="true">☼</div><div class="hero-wave" aria-hidden="true"></div>
+        </section>
+        <div class="metrics" id="home-metrics" aria-live="polite"></div>
+        <section class="daily-ritual" aria-label="Daily tarot card">
+          <div><p class="eyebrow">A MOMENT FOR YOURSELF</p><h2>Today's little ritual <span aria-hidden="true">✳</span></h2><p id="home-tarot-message">Pull a card and see what resonates today.</p></div>
+          <button class="btn btn-sea" type="button" data-tab="tarot">Open tarot <span aria-hidden="true">↗</span></button>
+        </section>
+        <div class="section-heading"><div><p class="eyebrow">YOUR ROUTINE</p><h2>Today's habits</h2></div><button class="text-button" type="button" data-tab="habits">See all →</button></div>
+        <div id="home-habits"></div>
+        <div class="section-heading"><div><p class="eyebrow">ON THE HORIZON</p><h2>Today's workouts</h2></div><button class="text-button" type="button" data-tab="workouts">See all →</button></div>
+        <div id="home-workouts"></div>
+      </section>
+
+      <section class="screen" id="screen-workouts" hidden aria-labelledby="workouts-title">
+        <div class="page-heading"><p class="eyebrow">SOME DAYS WE FLY, SOME DAYS WE FLOW</p><h1 id="workouts-title">Movement<span class="dot">.</span></h1><p>Plan the session. Record what really happened.</p></div>
+        <button class="btn btn-primary full-width" type="button" data-action="new-workout">+ Add a workout</button>
+        <section class="run-plan-feature" aria-label="Eight week running plan">
+          <div class="run-plan-feature-top"><div><p class="eyebrow">YOUR RUNNING CHALLENGE</p><h2>8 weeks, your way.</h2></div><span class="run-plan-tag">TWO RUNS / WEEK</span></div>
+          <p>Speed on Tuesday or Wednesday. Long runs on Saturday or Sunday. Choose each week's days before adding the plan.</p>
+          <button type="button" class="btn btn-dark full-width" data-action="new-run-plan">+ Add 8-week running plan</button>
+        </section>
+        <div id="run-plan-overview"></div>
+        <div class="filter-row"><label for="workout-filter">Show</label><select id="workout-filter"><option value="all">All activities</option><option value="run">Running</option><option value="weights">Weights</option><option value="yoga">Yoga</option><option value="other">Other</option></select></div>
+        <div id="workout-list"></div>
+      </section>
+
+      <section class="screen" id="screen-habits" hidden aria-labelledby="habits-title">
+        <div class="page-heading"><p class="eyebrow">LITTLE THINGS ADD UP</p><h1 id="habits-title">Habits<span class="dot">.</span></h1><p>Check in with the habits that matter to you.</p></div>
+        <button class="btn btn-primary full-width" type="button" data-action="new-habit">+ Add a daily habit</button>
+        <div class="date-panel"><label for="habit-date">Viewing date</label><input type="date" id="habit-date"><span class="muted" id="habit-day-caption"></span></div>
+        <div id="habit-progress"></div>
+        <div id="habit-list"></div>
+      </section>
+
+      <section class="screen" id="screen-tarot" hidden aria-labelledby="tarot-title">
+        <div class="page-heading tarot-heading"><p class="eyebrow">A DAILY MOMENT OF MAGIC</p><h1 id="tarot-title">The daily <em>draw.</em></h1><p>Not a prediction. Just a gentle invitation to reflect.</p></div>
+        <section class="tarot-draw-panel">
+          <div class="tarot-ornament" aria-hidden="true">☼ &nbsp; ✦ &nbsp; ☾</div>
+          <p class="eyebrow">ONE DAY AT A TIME</p>
+          <h2>What do you need to hear today?</h2>
+          <p>Take a moment, set an intention, and let your cards offer a new perspective.</p>
+          <label class="field" for="tarot-spread">Choose your reading
+            <select id="tarot-spread"><option value="1">One-card daily check-in</option><option value="3">Three cards · mind, body, spirit</option></select>
+          </label>
+          <button type="button" class="btn btn-primary full-width" data-action="draw-tarot" id="draw-tarot-button">✦ Draw my cards</button>
+        </section>
+        <div id="tarot-today" aria-live="polite"></div>
+        <form id="tarot-reflection-form" class="tarot-reflection" hidden>
+          <label class="field" for="tarot-reflection"><strong>Your reflection</strong><span class="helper">What resonates? What would you like to carry into today?</span>
+            <textarea id="tarot-reflection" rows="5" maxlength="4000" placeholder="Today I'm noticing…"></textarea>
+          </label>
+          <button class="btn btn-sea full-width" type="submit">Save my reflection</button>
+        </form>
+        <div class="section-heading"><div><p class="eyebrow">YOUR JOURNAL</p><h2>Past readings</h2></div></div>
+        <div id="tarot-history"></div>
+      </section>
+
+      <section class="screen" id="screen-history" hidden aria-labelledby="history-title">
+        <div class="page-heading"><p class="eyebrow">COLLECT THE GOOD DAYS</p><h1 id="history-title">Progress<span class="dot">.</span></h1><p>Your progress is more than a number on a scale.</p></div>
+        <div class="metrics" id="history-metrics"></div>
+        <div class="section-heading"><div><p class="eyebrow">LAST 7 DAYS</p><h2>Habit check-ins</h2></div></div>
+        <div id="history-chart"></div>
+        <div class="section-heading"><div><p class="eyebrow">YOUR LOGBOOK</p><h2>Completed workouts</h2></div></div>
+        <div id="history-workouts"></div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button type="button" data-tab="home" class="nav-link active" aria-current="page"><span aria-hidden="true">⌂</span><small>Home</small></button>
+      <button type="button" data-tab="workouts" class="nav-link"><span aria-hidden="true">↗</span><small>Workouts</small></button>
+      <button type="button" data-tab="habits" class="nav-link"><span aria-hidden="true">✓</span><small>Habits</small></button>
+      <button type="button" data-tab="tarot" class="nav-link"><span aria-hidden="true">☾</span><small>Tarot</small></button>
+      <button type="button" data-tab="history" class="nav-link"><span aria-hidden="true">▥</span><small>Progress</small></button>
+    </nav>
+  </div>
+
+  <dialog id="workout-dialog" class="sheet" aria-labelledby="workout-dialog-title">
+    <form id="workout-form">
+      <div class="dialog-header"><div><p class="eyebrow">TRAINING JOURNAL</p><h2 id="workout-dialog-title">New workout</h2></div><button type="button" class="close-button" data-action="close-workout" aria-label="Close">×</button></div>
+      <input type="hidden" id="workout-id">
+      <div class="field-grid"><label class="field">Activity<select id="workout-type" required><option value="run">🏃 Running</option><option value="weights">🏋️ Weights</option><option value="yoga">🧘 Yoga</option><option value="other">✦ Other</option></select></label><label class="field">Date<input type="date" id="workout-date" required></label></div>
+      <label class="field">Workout title<input id="workout-title" type="text" maxlength="80" required placeholder="e.g. Easy 5K / Legs / Morning flow"></label>
+      <label class="field">Status<select id="workout-status"><option value="planned">Planned</option><option value="completed">Completed</option></select></label>
+      <div class="form-divider"><span>01 / THE PLAN</span></div>
+      <label class="field">What do you want to do?<textarea id="workout-plan" rows="3" maxlength="3000" placeholder="Your goal, workout outline, exercises or intention"></textarea></label>
+      <div class="run-only conditional"><label class="field">Planned distance (km)<input id="run-planned-distance" type="number" min="0" max="1000" step="0.01" placeholder="5.00"></label><p class="helper" id="run-distance-range-note"></p></div>
+      <div class="form-divider"><span>02 / THE REALITY</span></div>
+      <label class="field">What did you actually do?<textarea id="workout-actual" rows="3" maxlength="3000" placeholder="How did the session go? What changed?"></textarea></label>
+      <div class="run-only conditional"><div class="field-grid"><label class="field">Actual distance (km)<input id="run-distance" type="number" min="0" max="1000" step="0.01" placeholder="5.20"></label><label class="field">Time (minutes)<input class="duration-input" id="run-duration" type="number" min="0" max="10000" step="0.1" placeholder="31"></label></div><label class="field">Effort<select id="run-effort"><option value="">Not recorded</option><option value="Easy">Easy</option><option value="Moderate">Moderate</option><option value="Hard">Hard</option></select></label></div>
+      <div class="weights-only conditional" hidden><div class="exercises-title"><label>Exercises completed</label><button class="text-button" data-action="add-exercise" type="button">+ Add exercise</button></div><p class="helper">Add your actual sets, reps and weights. Use the plan box above for your intended session.</p><div id="exercise-rows"></div></div>
+      <div class="yoga-only conditional" hidden><label class="field">Style / focus<select id="yoga-style"><option value="">Choose focus</option><option>Vinyasa / Flow</option><option>Restorative</option><option>Mobility</option><option>Strength</option><option>Meditation</option><option>Other</option></select></label></div>
+      <div class="non-run-only conditional" hidden><label class="field">Duration (minutes)<input id="other-duration" type="number" min="0" max="10000" step="0.1" placeholder="30"></label></div>
+      <button class="btn btn-primary full-width save-button" type="submit">Save workout</button>
+    </form>
+  </dialog>
+
+  <dialog id="run-plan-dialog" class="sheet" aria-labelledby="run-plan-dialog-title">
+    <form id="run-plan-form">
+      <div class="dialog-header"><div><p class="eyebrow">YOUR RUNNING ERA</p><h2 id="run-plan-dialog-title">Your 8-week run plan</h2></div><button type="button" class="close-button" data-action="close-run-plan" aria-label="Close">×</button></div>
+      <p class="dialog-copy">Choose a start week and independently pick Tue/Wed for speed and Sat/Sun for distance each week. You can move any workout later in the workout editor.</p>
+      <label class="field">Week 1 begins (choose any date in that week)
+        <input type="date" id="run-plan-start" required>
+      </label>
+      <div class="run-plan-dates-hint" id="run-plan-date-hint"></div>
+      <div id="run-plan-picker"></div>
+      <p class="helper">This creates 16 planned runs in your workout log. Your existing records and habits will stay unchanged. Days are suggestions, not deadlines.</p>
+      <button type="submit" class="btn btn-primary full-width save-button">Add all 16 planned runs</button>
+    </form>
+  </dialog>
+
+  <dialog id="habit-dialog" class="sheet short-sheet" aria-labelledby="habit-dialog-title">
+    <form id="habit-form"><div class="dialog-header"><div><p class="eyebrow">BUILD YOUR ROUTINE</p><h2 id="habit-dialog-title">New daily habit</h2></div><button type="button" class="close-button" data-action="close-habit" aria-label="Close">×</button></div>
+      <label class="field">Habit name<input id="habit-name" type="text" maxlength="70" required placeholder="e.g. Read 10 minutes"></label>
+      <label class="field">Your target (optional)<input id="habit-target" type="text" maxlength="80" placeholder="e.g. 2 litres or 10 minutes"></label>
+      <p class="helper">Habits are daily in this first version. You can tick them off for any date.</p>
+      <button class="btn btn-primary full-width save-button" type="submit">Add habit</button>
+    </form>
+  </dialog>
+
+  <dialog id="settings-dialog" class="sheet short-sheet" aria-labelledby="settings-title">
+    <div class="dialog-header"><div><p class="eyebrow">YOUR DEN</p><h2 id="settings-title">Settings & backups</h2></div><button type="button" class="close-button" data-action="close-settings" aria-label="Close">×</button></div>
+    <p class="dialog-copy">Your data is saved in this browser on this device. It doesn't automatically sync to another phone, and clearing website data can erase it.</p>
+    <div class="settings-actions"><button type="button" class="btn btn-primary" data-action="export-data">↓ Export backup (.json)</button><label class="btn btn-outline import-label">↑ Import backup<input type="file" id="import-file" accept="application/json,.json" hidden></label><button type="button" class="btn btn-danger" data-action="clear-data">Delete all saved data</button></div>
+    <p class="helper">Export regularly and save the file in iCloud Drive or another safe location. Importing a backup replaces the current app data.</p>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
