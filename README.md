@@ -1,70 +1,64 @@
-# Tiger Track · Coastal, Tarot & Glute Routine edition (v4)
+# Tiger Track v5 · Cosmic Rhythms & Period Tracking
 
-A free, private-to-your-device iPhone-friendly Progressive Web App, with:
+A personal, free, iPhone-friendly web app with a coastal tiger aesthetic: warm muted orange, sea-glass turquoise, cream and terracotta.
 
-- Soft turquoise, warm orange, cream and tiger-wave aesthetic
-- Running, weights, yoga and other workouts, including planned vs actual logs
-- Eight-week running challenge (Tue/Wed speed, Sat/Sun long run, independently selectable each week)
-- Two weekly glute workout videos: Monday/Friday and Tuesday/Saturday, with one-tap links and an optional workout log
-- Daily habits, completion history and weekly stats
-- Daily tarot: all 78 cards, one-card and three-card mind/body/spirit spreads, upright/reversed meanings, daily reflections and past-reading history
-- Export/import backups (JSON) and offline capability after the initial load
+## What is included
 
-## Run locally
+- **Home / Movement:** plan and log runs, weights, yoga or anything else, with planned vs actual notes.
+- **8-week running plan:** 16 running sessions to take your long run from 10 to 25 km; speed sessions Tue/Wed, distance sessions Sat/Sun, independently chosen each week.
+- **Glute glow:** Monday/Friday workout [video 1](https://www.youtube.com/watch?v=T1cio6MJ7Fs); Tuesday/Saturday workout [video 2](https://www.youtube.com/watch?v=hDkhKi-5_sQ&t=397s). One-tap video links and a log button.
+- **Habits:** daily check-ins and weekly progress.
+- **Tarot:** a local 78-card deck with upright/reversed interpretations, one- and three-card draws and written reflections.
+- **Cosmos → Monthly New-Moon Reset:** real calculated new-moon dates, a short countdown, and saved intention/reflection prompts for each lunar month. Prompts cover wins, what to release, intentions, movement and self-care.
+- **Cosmos → My Period Cycle:** record period start/end dates, symptom notes, energy, mood, flow, and a browseable calendar. Average cycle length is calculated from entered period starts. A predicted next start is **an estimate only**, not contraception guidance.
+- **Cosmos → Saturn Season:** an optional date-of-birth field showing a broad, age-based Saturn-return reflection window (29th to 31st birthdays). **This is not a natal-chart calculation**; exact natal Saturn returns require an ephemeris and other data.
+- **Backups:** JSON export/import includes workouts, habits, tarot, moon resets, optional birth date and cycle records.
 
-1. Extract the ZIP file.
-2. Open the **tiger-track-coastal-tarot** folder in VS Code.
-3. Install the free **Live Server** extension (Ritwick Dey) and open **index.html** with Live Server.
-4. Try the tabs, draw tarot cards and save a reflection.
+## Install or update on GitHub Pages, without creating duplicate folders
 
-No Node.js, dependencies, logins or paid services are needed. Avoid opening `index.html` from the file system for PWA testing; use Live Server.
+1. **Before updating:** in your current Tiger Track app, open **Settings → Export backup** and keep the downloaded JSON somewhere private.
+2. Download and **extract** the Tiger Track v5 ZIP. Open the extracted folder.
+3. Open your existing GitHub Pages repository (the one currently hosting your app). You do **not** need to delete or create a new repository.
+4. Upload the **files and `icons` directory inside the extracted folder**, not the ZIP and not the outer folder. Keep these files at the **top/root level** of your repository:
 
-## Two weekly glute workouts
+   ```text
+   index.html
+   app.js
+   cosmos.js        ← NEW; don't forget!
+   tarot-data.js
+   styles.css
+   manifest.json
+   service-worker.js
+   README.md
+   icons/
+     icon.svg
+     icon-192.png
+     icon-512.png
+   ```
 
-- **Monday and Friday**: https://www.youtube.com/watch?v=T1cio6MJ7Fs
-- **Tuesday and Saturday**: https://www.youtube.com/watch?v=hDkhKi-5_sQ&t=397s (starts at 6:37)
-- The schedule repeats every week and appears on **Home** and **Workouts**; today's video is highlighted.
-- **Watch video** opens YouTube in a new tab. **+ Log workout** opens the existing workout tracker with title and video link pre-filled, so you can record what you did. The recurring links themselves do not automatically record or tick off sessions.
-- Wednesday, Thursday and Sunday do not have glute videos scheduled.
+5. Commit the changes. GitHub Pages must be set to **Settings → Pages → Deploy from a branch → main → /(root)**.
+6. Check **Actions** until **pages build and deployment** completes. Then open **Settings → Pages → Visit site**. On a computer use `Ctrl + Shift + R` to refresh; on Safari, reopen the site. Your Settings modal should show `Tiger Track v5 · Moon resets & period cycles`.
+7. To add to iPhone Home Screen, open the live URL in **Safari → Share → Add to Home Screen**. No Apple Developer subscription or App Store publishing required.
 
-## Upload cleanly to a new GitHub Pages repository
+**Important:** GitHub Pages hosting under a public repository means the **app's source code** is public. Your recorded workouts, period data and journal text are *not* saved to GitHub by this app; they are in the browser's local storage. However, browser storage is **not encrypted**. Someone with access to the unlocked device/browser, other scripts from the same site origin, or an exported JSON backup may be able to read it. Backups are plaintext, so store them privately. Clearing Safari website data or removing an installed web app could delete local records. This is not cloud syncing, and different browsers/devices have independent records.
 
-1. Extract the ZIP and open the extracted folder.
-2. In the GitHub repository, select **Add file → Upload files** and upload the *contents* of this folder. Make sure `index.html` is at repository root, not buried inside another folder.
-3. Commit the files. Open **Settings → Pages**, select **Deploy from a branch → main → /(root)**, and save.
-4. Visit the Pages URL shown under **Settings → Pages**, then open it in iPhone Safari and **Share → Add to Home Screen**.
-5. The public repository contains your app code, not your personal workout logs. Workout logs are stored locally in the browser. Use **Settings → Export backup** regularly.
+## Try it locally
 
-## Update any existing GitHub Pages app
+With Visual Studio Code, install the free **Live Server** extension and open the folder, then right-click `index.html` → **Open with Live Server**. No Node.js, backend, paid libraries, or astrology API required.
 
-1. **Back up existing data first** from Tiger Track **Settings → Export backup**. Save it to Files or iCloud Drive.
-2. Open the GitHub repository you are currently publishing (for example, `tiger-track-wellness`). You do not need to create another one.
-3. In the GitHub repository, use **Add file → Upload files**. Upload **all files from inside this extracted folder**, including the `icons` directory and the `tarot-data.js`. Keep `index.html`, `app.js`, `styles.css`, `tarot-data.js`, `service-worker.js`, `manifest.json` and `icons/` at the **repository root**, not inside an extra folder.
-4. Commit changes. If GitHub won't accept replacement files from the upload page, use the VS Code Source Control view to commit/push, or open each file on GitHub and edit it directly.
-5. Wait for **Actions → pages build and deployment** to finish.
-6. Open the **Pages URL shown for that repository** in iPhone Safari. Refresh once; if old visuals persist, close and relaunch the home-screen app or refresh Safari again. Check Settings for **v4 · Weekly glute videos**.
-7. Your original home-screen icon can remain. If the icon does not update, remove the old icon from your Home Screen and add the site again in Safari. Removing the icon is different from clearing website data; **do not clear website data** because it may erase local records.
+## Moon and period data notes
 
-### Keeping your data
+The app calculates astronomical new-moon times on-device using the standard true-new-moon series, which is generally quite accurate for modern years. Treat calendar times as approximate, not as high-precision ephemerides. Time is displayed in your browser's local timezone.
 
-The storage key remains `tiger-track-data-v1` intentionally, so old workouts, habits and running plans are carried forward on the **same device and website URL**, where Safari retained the data. The app adds `tarot` readings into the same record.
+The menstrual cycle estimate is based on the number of days **between first days** of logged periods (most recent six valid intervals); if only one is recorded, it uses the editable default (28 days). Logged periods can vary, and a date estimate cannot establish fertility or reliably prevent pregnancy. The moon phase and menstruation displays are separate. No biological causal relationship is assumed.
 
-Local browser storage does **not** automatically sync between your computer and iPhone. If you entered data on your computer and want it on your phone, export a backup from the computer, then import it in Tiger Track on the iPhone. Importing replaces records on that device, so export first.
-
-Exporting your data produces a JSON file containing workouts, habits, daily habit check-ins and tarot readings. Save backups somewhere you control. Older Tiger Track backups still import; they simply contain no tarot readings.
-
-## About tarot
-
-The deck includes 78 traditional tarot card names, with original short summaries and journal prompts. Each daily draw is random and saved under your local date; you can draw one card or three (mind, body, spirit) and optionally draw again after confirmation. Upright/reversed orientation is random. Tarot is offered for entertainment and personal reflection, not as factual prediction or health, financial or relationship advice.
+If you experience persistent changes to your usual period pattern, significant pain or unusually heavy bleeding, medical advice is more useful than app-generated estimates.
 
 ## Files
 
-- `index.html` — screens, forms, and navigation
-- `styles.css` — coastal tiger palette and card illustration styling
-- `tarot-data.js` — all 78 card meanings and prompts
-- `app.js` — workouts, habits, run schedule, storage, tarot logic
-- `manifest.json` — iPhone Home Screen metadata
-- `service-worker.js` — basic offline caching
-- `icons/` — tiger-wave Home Screen icon
-
-No Pinterest artwork is copied into this app. Its illustrations and graphic shapes are locally coded and original.
+- `index.html`: screens and forms
+- `styles.css`: coastal tiger visual design
+- `app.js`: workouts, habits, tarot, data management
+- `cosmos.js`: new moons, journal rituals, cycle tracker and Saturn reflection
+- `tarot-data.js`: 78 card descriptions
+- `manifest.json`, `service-worker.js`, `icons/`: install and offline support

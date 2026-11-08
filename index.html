@@ -4,16 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f9f5ec">
-  <meta name="description" content="Tiger Track, your cosy space for movement, habits and daily tarot.">
+  <meta name="description" content="Tiger Track, your cosy space for movement, habits, tarot, moon resets and cycle tracking.">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Tiger Track">
   <link rel="manifest" href="./manifest.json">
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./icons/icon-192.png">
-  <link rel="stylesheet" href="./styles.css?v=4">
-  <script src="./tarot-data.js?v=4" defer></script>
-  <script src="./app.js?v=4" defer></script>
+  <link rel="stylesheet" href="./styles.css?v=5">
+  <script src="./tarot-data.js?v=5" defer></script>
+  <script src="./cosmos.js?v=5" defer></script>
+  <script src="./app.js?v=5" defer></script>
   <title>Tiger Track</title>
 </head>
 <body>
@@ -45,6 +46,11 @@
         <section class="daily-ritual" aria-label="Daily tarot card">
           <div><p class="eyebrow">A MOMENT FOR YOURSELF</p><h2>Today's little ritual <span aria-hidden="true">✳</span></h2><p id="home-tarot-message">Pull a card and see what resonates today.</p></div>
           <button class="btn btn-sea" type="button" data-tab="tarot">Open tarot <span aria-hidden="true">↗</span></button>
+        </section>
+        <section class="moon-home-card" aria-labelledby="moon-home-title">
+          <div class="moon-home-art" aria-hidden="true">☾</div>
+          <div class="moon-home-copy"><p class="eyebrow">A FRESH LITTLE BEGINNING</p><h2 id="moon-home-title">Your new-moon reset</h2><p id="moon-home-next">Your next reset is just around the corner.</p>
+          <button type="button" class="btn btn-sea" data-tab="cosmos">Open my reset ✦</button></div>
         </section>
         <div class="section-heading"><div><p class="eyebrow">YOUR ROUTINE</p><h2>Today's habits</h2></div><button class="text-button" type="button" data-tab="habits">See all →</button></div>
         <div id="home-habits"></div>
@@ -101,6 +107,67 @@
         <div id="tarot-history"></div>
       </section>
 
+
+      <section class="screen" id="screen-cosmos" hidden aria-labelledby="cosmos-title">
+        <div class="page-heading cosmos-heading"><p class="eyebrow">THE ART OF COMING BACK TO YOURSELF</p><h1 id="cosmos-title">Cosmic <em>rhythms.</em></h1><p>Moon rituals, your body's cycle, and space to grow.</p></div>
+        <section class="cosmos-moon-hero" aria-labelledby="cosmos-moon-title">
+          <div class="cosmos-moon-art" aria-hidden="true"><div class="cosmos-moon-disc"></div><span>✦</span></div>
+          <div class="cosmos-moon-copy"><p class="eyebrow">THE NEXT LUNAR CHAPTER</p><h2 id="cosmos-moon-title">Make space for a new beginning.</h2>
+          <p id="cosmos-moon-date">Calculating the next new moon…</p><p class="small-quiet" id="cosmos-moon-countdown"></p></div>
+        </section>
+        <section class="cosmos-panel" aria-labelledby="newmoon-heading">
+          <div class="section-heading"><div><p class="eyebrow">EVERY NEW MOON</p><h2 id="newmoon-heading">The monthly reset ✧</h2></div></div>
+          <p class="cosmos-intro">Come back to your intentions every lunar month. It doesn't have to be perfect or profound.</p>
+          <div class="reset-date-note" id="reset-date-note"></div>
+          <form id="new-moon-reset-form" class="cosmos-form">
+            <label class="field">What went well in the last chapter?<textarea id="reset-celebrate" maxlength="2000" rows="2" placeholder="Small wins count too…"></textarea></label>
+            <label class="field">What am I ready to let go of?<textarea id="reset-release" maxlength="2000" rows="2" placeholder="A pressure, an expectation, an old story…"></textarea></label>
+            <label class="field">My intention for this new moon<textarea id="reset-intention" maxlength="2000" rows="2" placeholder="This month, I want to…"></textarea></label>
+            <label class="field">My movement & wellbeing focus<textarea id="reset-movement" maxlength="2000" rows="2" placeholder="Running, yoga, strength, rest…"></textarea></label>
+            <label class="field">How can I care for myself?<textarea id="reset-care" maxlength="2000" rows="2" placeholder="One gentle promise to myself…"></textarea></label>
+            <button type="submit" class="btn btn-sea full-width">Save this moon's intentions</button>
+          </form>
+          <div class="section-heading"><div><p class="eyebrow">LOOK HOW FAR YOU'VE COME</p><h2>Previous resets</h2></div></div>
+          <div id="reset-history"></div>
+        </section>
+        <section class="cosmos-panel cycle-panel" aria-labelledby="cycle-heading">
+          <div class="section-heading"><div><p class="eyebrow">YOUR BODY'S RHYTHM</p><h2 id="cycle-heading">My period cycle ♡</h2></div></div>
+          <p class="cosmos-intro">A private place to notice patterns: period dates, symptoms, mood and energy. Your cycle doesn't need to match the moon or anyone else's.</p>
+          <div class="privacy-note"><span aria-hidden="true">◈</span><span>Records stay in this browser's local storage, not in the public GitHub repository. They're not encrypted; anyone with access to this device or an exported backup may be able to read them.</span></div>
+          <div id="cycle-summary" class="cycle-summary"></div>
+          <form id="period-entry-form" class="cycle-form compact-form">
+            <p class="mini-heading">LOG A PERIOD</p>
+            <div class="field-grid"><label class="field">First day of bleeding<input id="period-start" type="date" required></label><label class="field">Last day (optional)<input id="period-end" type="date"></label></div>
+            <button class="btn btn-primary full-width" type="submit">+ Save period</button>
+          </form>
+          <div class="cycle-calendar" aria-label="Period calendar"><div class="cycle-calendar-head"><button class="calendar-arrow" type="button" data-action="cycle-prev-month" aria-label="Previous month">‹</button><h3 id="cycle-calendar-title"></h3><button class="calendar-arrow" type="button" data-action="cycle-next-month" aria-label="Next month">›</button></div><div class="calendar-days" id="cycle-calendar-days"></div><p class="calendar-legend"><span class="legend-period"></span> Logged period <span class="legend-estimate"></span> Estimated next period <span class="legend-note"></span> Daily note</p></div>
+          <form id="cycle-daily-form" class="cycle-form compact-form">
+            <p class="mini-heading">HOW DID I FEEL?</p>
+            <label class="field">Date<input id="cycle-log-date" type="date" required></label>
+            <div class="field-grid"><label class="field">Flow<select id="cycle-flow"><option value="">Not recorded</option><option value="spotting">Spotting</option><option value="light">Light</option><option value="medium">Medium</option><option value="heavy">Heavy</option></select></label><label class="field">Energy<select id="cycle-energy"><option value="">Not recorded</option><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select></label></div>
+            <label class="field">Mood<select id="cycle-mood"><option value="">Not recorded</option><option value="calm">Calm</option><option value="happy">Happy</option><option value="sensitive">Sensitive</option><option value="anxious">Anxious</option><option value="irritable">Irritable</option><option value="low">Low mood</option><option value="other">Other</option></select></label>
+            <fieldset class="symptoms-fieldset"><legend>Symptoms (optional)</legend><div class="symptom-grid">
+              <label><input type="checkbox" name="cycle-symptom" value="Cramps">Cramps</label><label><input type="checkbox" name="cycle-symptom" value="Bloating">Bloating</label>
+              <label><input type="checkbox" name="cycle-symptom" value="Headache">Headache</label><label><input type="checkbox" name="cycle-symptom" value="Fatigue">Fatigue</label>
+              <label><input type="checkbox" name="cycle-symptom" value="Acne">Acne</label><label><input type="checkbox" name="cycle-symptom" value="Cravings">Cravings</label>
+            </div></fieldset>
+            <label class="field">Notes<textarea id="cycle-notes" maxlength="2000" rows="2" placeholder="How are you feeling today?"></textarea></label>
+            <div class="cycle-form-actions"><button class="btn btn-sea" type="submit">Save check-in</button><button class="btn btn-outline" type="button" data-action="cycle-clear-day">Clear this day</button></div>
+          </form>
+          <details class="cycle-settings"><summary>Cycle estimate settings</summary><div class="field-grid"><label class="field">Typical cycle length (days)<input id="cycle-length-setting" type="number" min="15" max="90" step="1" value="28"></label><label class="field">Typical period length (days)<input id="period-length-setting" type="number" min="1" max="20" step="1" value="5"></label></div><button type="button" class="btn btn-outline" data-action="cycle-save-settings">Save settings</button><p class="helper">Used only as a starting estimate until you have logged enough period starts.</p></details>
+          <p class="cycle-warning">Cycle dates are rough estimates, especially if your periods vary. Do not use these predictions to prevent pregnancy or make medical decisions.</p>
+          <div class="section-heading"><div><p class="eyebrow">YOUR RECORD</p><h2>Previous periods</h2></div></div>
+          <div id="period-history"></div>
+        </section>
+        <section class="cosmos-panel saturn-panel" aria-labelledby="saturn-heading">
+          <div class="section-heading"><div><p class="eyebrow">GROWING INTO YOURSELF</p><h2 id="saturn-heading">Saturn season ♄</h2></div></div>
+          <p class="cosmos-intro">In astrology, the first Saturn return is traditionally associated with turning points around age 29–30. Think of it as a reflective lens, not a prediction.</p>
+          <form id="saturn-form" class="compact-form"><label class="field">Date of birth (optional)<input type="date" id="saturn-birthdate"></label><button class="btn btn-outline" type="submit">Show my approximate Saturn-return window</button></form>
+          <div id="saturn-result" class="saturn-result" aria-live="polite"></div>
+          <p class="helper">This is an age-based estimate, not an astronomical Saturn-return calculation or a full birth chart. Exact natal positions need more detailed birth information and an ephemeris.</p>
+        </section>
+      </section>
+
       <section class="screen" id="screen-history" hidden aria-labelledby="history-title">
         <div class="page-heading"><p class="eyebrow">COLLECT THE GOOD DAYS</p><h1 id="history-title">Progress<span class="dot">.</span></h1><p>Your progress is more than a number on a scale.</p></div>
         <div class="metrics" id="history-metrics"></div>
@@ -116,6 +183,7 @@
       <button type="button" data-tab="workouts" class="nav-link"><span aria-hidden="true">↗</span><small>Workouts</small></button>
       <button type="button" data-tab="habits" class="nav-link"><span aria-hidden="true">✓</span><small>Habits</small></button>
       <button type="button" data-tab="tarot" class="nav-link"><span aria-hidden="true">☾</span><small>Tarot</small></button>
+      <button type="button" data-tab="cosmos" class="nav-link"><span aria-hidden="true">✧</span><small>Cosmos</small></button>
       <button type="button" data-tab="history" class="nav-link"><span aria-hidden="true">▥</span><small>Progress</small></button>
     </nav>
   </div>
@@ -165,10 +233,10 @@
 
   <dialog id="settings-dialog" class="sheet short-sheet" aria-labelledby="settings-title">
     <div class="dialog-header"><div><p class="eyebrow">YOUR DEN</p><h2 id="settings-title">Settings & backups</h2></div><button type="button" class="close-button" data-action="close-settings" aria-label="Close">×</button></div>
-    <p class="dialog-copy">Your data is saved in this browser on this device. It doesn't automatically sync to another phone, and clearing website data can erase it.</p>
+    <p class="dialog-copy">Your data, including period records and personal reflections, is saved locally in this browser on this device. It is not encrypted, does not sync between devices, and can be erased by clearing website data.</p>
     <div class="settings-actions"><button type="button" class="btn btn-primary" data-action="export-data">↓ Export backup (.json)</button><label class="btn btn-outline import-label">↑ Import backup<input type="file" id="import-file" accept="application/json,.json" hidden></label><button type="button" class="btn btn-danger" data-action="clear-data">Delete all saved data</button></div>
-    <p class="helper">Export regularly and save the file in iCloud Drive or another safe location. Importing a backup replaces the current app data.</p>
-    <p class="helper">Tiger Track v4 · Weekly glute videos</p>
+    <p class="helper">Export regularly and keep backups somewhere private and secure: they contain period, tarot and journal entries in readable text. Importing a backup replaces current app data.</p>
+    <p class="helper">Tiger Track v5 · Moon resets & period cycles</p>
   </dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>

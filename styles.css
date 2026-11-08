@@ -373,3 +373,96 @@ h2 { font-weight:600; font-size:25px; }
  .glute-watch,.glute-log { font-size:10px; padding:7px; }
  .glute-routine-body h3 { font-size:16px; }
 }
+
+
+/* v5: Cosmic rhythms, new-moon rituals and locally stored period records. */
+.bottom-nav { grid-template-columns:repeat(6,minmax(0,1fr)); padding-inline:5px; }
+.nav-link { min-width:0; padding:7px 1px 5px; }
+.nav-link>span { font-size:21px; }
+.nav-link small { font-size:9px; letter-spacing:-.02em; }
+.moon-home-card { display:grid; grid-template-columns:92px minmax(0,1fr); align-items:center; gap:15px; margin:20px 0 8px; padding:17px; border-radius:25px; background:linear-gradient(130deg,#d9eee9,#e8ebde 66%,#f3dbc3); border:1px solid #cbded6; box-shadow:var(--shadow); }
+.moon-home-art { position:relative; display:grid; place-items:center; width:88px; height:110px; font-family:Georgia,serif; font-size:73px; line-height:1; color:#f8dfb5; text-shadow:0 2px #5e8c8230; border-radius:43px 43px 14px 14px; background:radial-gradient(circle at 58% 44%,#5d9391 0 46%,#7cbab0 47% 100%); }
+.moon-home-art:after { content:'✧'; position:absolute; right:9px; top:7px; color:#ffefce; font-size:23px; }
+.moon-home-copy h2 { font-size:22px; margin:5px 0 8px; color:#315b58; }
+.moon-home-copy p:not(.eyebrow) { color:#56746c; font-size:12px; line-height:1.5; margin-bottom:12px; }
+.moon-home-copy .btn { min-height:37px; padding:8px 12px; font-size:11px; }
+.cosmos-heading { margin-bottom:18px; }
+.cosmos-moon-hero { min-height:236px; position:relative; overflow:hidden; border-radius:27px; background:linear-gradient(135deg,#396d70,#5b9a96 67%,#a5cec0); padding:25px 22px; color:#fff8eb; display:flex; align-items:center; gap:16px; }
+.cosmos-moon-hero:after { content:''; position:absolute; width:360px; height:360px; border:1px solid #f5deb236; border-radius:50%; right:-172px; top:-122px; box-shadow:0 0 0 28px #ffffff0b,0 0 0 64px #ffffff08; pointer-events:none; }
+.cosmos-moon-art { width:110px; flex:0 0 110px; height:160px; position:relative; display:grid; place-items:center; }
+.cosmos-moon-disc { width:95px; height:95px; background:#f5dcad; box-shadow:0 0 0 10px #f5e5c41f,0 0 45px #f6e1b052; border-radius:50%; }
+.cosmos-moon-art:after { content:''; position:absolute; border-radius:50%; width:94px; height:94px; left:38px; top:27px; background:#4e8583; box-shadow:-3px 3px 0 #f5dcad; }
+.cosmos-moon-art span { position:absolute; z-index:1; top:12px; right:2px; color:#f3dca9; font-size:27px; }
+.cosmos-moon-copy { position:relative; z-index:1; flex:1; min-width:0; }
+.cosmos-moon-copy .eyebrow { color:#f4d5a5; font-size:9px; }
+.cosmos-moon-copy h2 { color:#fff8e9; font-size:26px; font-weight:500; line-height:1.09; margin:8px 0 15px; }
+.cosmos-moon-copy p:not(.eyebrow) { font-size:13px; line-height:1.45; color:#f3f3e5; }
+.cosmos-moon-copy .small-quiet { opacity:.84; font-size:11px!important; margin-top:6px; }
+.cosmos-panel { padding:19px 17px; border-radius:24px; background:#fffdf6; border:1px solid #e5e5d9; margin:19px 0; box-shadow:var(--shadow); }
+.cosmos-panel .section-heading { margin:0 0 10px; }
+.cosmos-panel .section-heading h2 { font-size:25px; }
+.cosmos-panel .section-heading:not(:first-child) { margin-top:25px; }
+.cosmos-intro { color:#68766e; font-size:12px; line-height:1.65; margin-bottom:14px; }
+.cosmos-form { display:grid; gap:10px; }
+.cosmos-form .field { gap:5px; font-size:12px; }
+.cosmos-form textarea { min-height:62px; background:#fcfbf4; }
+.reset-date-note { margin:0 0 15px; border-radius:14px; padding:12px 14px; background:#e7f1e9; font-size:12px; color:#416f68; font-weight:650; line-height:1.4; }
+.reset-history-item,.period-history-item { padding:11px 12px; border:1px solid #e8e4d9; border-radius:14px; background:#fffdf8; margin:8px 0; }
+.reset-history-item summary { cursor:pointer; color:#457a74; font-weight:700; font-size:12px; }
+.reset-history-item p { font-size:12px; line-height:1.5; color:#665e56; margin:8px 0; white-space:pre-wrap; }
+.reset-history-item strong { color:#4a776d; }
+.empty-cosmos { font-size:12px; color:#91867a; padding:9px 0; line-height:1.5; }
+.cycle-panel { background:linear-gradient(160deg,#fffaf3,#fcf5ee 70%,#f9f4ed); border-color:#ebded1; }
+.cycle-panel h2 { color:#9e654d; }
+.privacy-note { display:flex; gap:10px; padding:11px 12px; background:#f4ebe1; color:#765f53; font-size:11px; line-height:1.55; border-radius:13px; margin:12px 0 15px; }
+.privacy-note>span:first-child { font-size:19px; color:#ac755e; }
+.cycle-summary { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; margin:13px 0; }
+.cycle-metric { padding:13px 12px; background:#e5f0e9; border-radius:15px; min-width:0; }
+.cycle-metric:nth-child(2) { background:#f5dfce; }
+.cycle-metric strong { color:#3c7773; font-size:17px; display:block; }
+.cycle-metric:nth-child(2) strong { color:#aa6c4f; }
+.cycle-metric small { display:block; color:#696f65; margin-top:5px; font-size:10px; line-height:1.4; }
+.cycle-form { border-radius:18px; background:#fffdf8; border:1px solid #eae2d7; padding:14px; margin:15px 0; }
+.cycle-form .field { font-size:12px; }
+.cycle-form .field-grid { gap:8px; }
+.cycle-form .field input,.cycle-form .field select,.cycle-form .field textarea { padding:10px 9px; font-size:13px; }
+.mini-heading { color:#aa735b; font-size:10px; font-weight:800; letter-spacing:.14em; margin-bottom:12px; }
+.cycle-form .btn { margin-top:8px; }
+.cycle-calendar { padding:13px 11px 12px; background:#fffef8; border:1px solid #e6e4d6; border-radius:18px; margin:17px 0; }
+.cycle-calendar-head { display:flex; justify-content:space-between; align-items:center; }
+.cycle-calendar-head h3 { color:#476b66; font-size:20px; font-weight:500; }
+.calendar-arrow { font-size:25px; display:grid; place-items:center; width:36px; height:36px; border:1px solid #dfe5dd; border-radius:12px; background:#f4f6ee; color:#53827a; }
+.calendar-days { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:3px; margin-top:12px; }
+.calendar-day-label { text-align:center; font-size:10px; color:#7c867d; padding:7px 0; }
+.calendar-cell { border:0; border-radius:10px; min-width:0; height:42px; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; background:transparent; color:#645e55; font-size:12px; }
+.calendar-cell[disabled] { opacity:0; pointer-events:none; }
+.calendar-cell.is-period { background:#edc7ad; color:#774a38; font-weight:750; }
+.calendar-cell.is-estimate { background:#ebede0; color:#728a7f; border:1px dashed #9fc8bd; }
+.calendar-cell.is-today { box-shadow:inset 0 0 0 2px #4d9088; }
+.calendar-cell.is-selected { outline:2px solid #b56e50; outline-offset:-2px; }
+.calendar-dot { position:absolute; bottom:4px; width:5px; height:5px; background:#477e79; border-radius:100%; }
+.calendar-legend { display:flex; align-items:center; gap:5px; flex-wrap:wrap; font-size:10px; color:#807368; margin-top:12px; line-height:1.8; }
+.calendar-legend span { width:10px; height:10px; display:inline-block; border-radius:3px; margin-left:7px; }
+.calendar-legend span:first-child { margin-left:0; }
+.legend-period { background:#edc7ad; }.legend-estimate { background:#ebede0; border:1px dashed #9fc8bd; }.legend-note { background:#477e79; border-radius:50%!important; }
+.symptoms-fieldset { border:0; padding:0; margin:10px 0 6px; }
+.symptoms-fieldset legend { color:#516e68; font-size:12px; font-weight:700; margin-bottom:9px; }
+.symptom-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.symptom-grid label { display:flex; align-items:center; gap:7px; font-size:12px; color:#5f665e; padding:9px 10px; background:#faf6ee; border:1px solid #eee7d8; border-radius:10px; }
+.symptom-grid input { accent-color:#b77b62; }
+.cycle-form-actions { display:flex; flex-wrap:wrap; gap:9px; }
+.cycle-form-actions .btn { flex:1; }
+.cycle-settings { background:#f0f4ec; border-radius:14px; padding:13px; margin:14px 0; }
+.cycle-settings summary { font-size:12px; color:#426c65; cursor:pointer; font-weight:700; }
+.cycle-settings .field-grid { margin-top:12px; }
+.cycle-settings .btn { margin-top:9px; font-size:11px; }
+.cycle-warning { border-left:3px solid #ba8869; padding:8px 11px; color:#8c7161; font-size:11px; line-height:1.6; }
+.period-history-item { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.period-history-item strong { color:#5a7469; font-size:13px; }
+.period-history-item small { display:block; margin-top:4px; color:#827669; font-size:11px; }
+.period-history-item button { border:0; color:#a76254; padding:7px; background:transparent; font-size:12px; }
+.saturn-panel { background:linear-gradient(145deg,#dcece4,#f7edda); border-color:#d4e4d8; }
+.saturn-panel .btn { margin:0 0 11px; }
+.saturn-result { font-size:12px; color:#4c655e; line-height:1.6; }
+.saturn-result strong { font-size:15px; display:block; margin:4px 0; }
+@media(max-width:375px) { .nav-link small{font-size:8.5px;} .cosmos-moon-hero{padding:19px 15px;gap:8px;} .cosmos-moon-art{width:80px; flex-basis:80px;} .cosmos-moon-disc {width:75px;height:75px;} .cosmos-moon-art:after{width:76px;height:76px;left:27px;top:39px;} .cosmos-moon-copy h2{font-size:23px;} .moon-home-card{grid-template-columns:74px minmax(0,1fr);padding:12px;gap:12px;} .moon-home-art{width:74px;height:100px;font-size:56px;} .cycle-form .field-grid {grid-template-columns:1fr 1fr;} }

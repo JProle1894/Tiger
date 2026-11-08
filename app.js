@@ -54,13 +54,23 @@ function numeric(value) {
   const n = Number(value);
   return Number.isFinite(n) && n >= 0 ? n : null;
 }
-function defaultStore() { return { workouts: [], habits: [], checks: {}, tarot: {} }; }
+function defaultStore() { return { workouts: [], habits: [], checks: {}, tarot: {}, cosmos: defaultCosmosStore() }; }
+function defaultCosmosStore() { return {resets:{}, periods:[], daily:{}, cycleLength:28, periodLength:5, birthDate:''}; }
+function normaliseCosmosStore(value) {
+  const fresh = defaultCosmosStore();
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return fresh;
+  return { ...fresh, ...value,
+    resets: value.resets && typeof value.resets === 'object' && !Array.isArray(value.resets) ? value.resets : {},
+    periods: Array.isArray(value.periods) ? value.periods : [],
+    daily: value.daily && typeof value.daily === 'object' && !Array.isArray(value.daily) ? value.daily : {}
+  };
+}
 function loadStore() {
   try {
     const parsed = JSON.parse(localStorage.getItem(STORE_KEY) || 'null');
     if (parsed && Array.isArray(parsed.workouts) && Array.isArray(parsed.habits) && parsed.checks && typeof parsed.checks === 'object' && !Array.isArray(parsed.checks)) {
       // Keep the original key so previously saved workouts and habits survive app updates.
-      return {...parsed, tarot: parsed.tarot && typeof parsed.tarot === 'object' && !Array.isArray(parsed.tarot) ? parsed.tarot : {}};
+      return {...parsed, tarot: parsed.tarot && typeof parsed.tarot === 'object' && !Array.isArray(parsed.tarot) ? parsed.tarot : {}, cosmos: normaliseCosmosStore(parsed.cosmos)};
     }
   } catch (err) { console.warn('Could not load saved records:', err); }
   return defaultStore();
@@ -83,7 +93,7 @@ function persist() {
   render();
 }
 function setTab(tab) {
-  if (!['home','workouts','habits','tarot','history'].includes(tab)) return;
+  if (!['home','workouts','habits','tarot','cosmos','history'].includes(tab)) return;
   activeTab = tab;
   for (const section of document.querySelectorAll('.screen')) section.hidden = section.id !== `screen-${tab}`;
   for (const btn of document.querySelectorAll('.nav-link')) {
@@ -264,7 +274,7 @@ function renderHistory() {
   const workouts = store.workouts.filter(w=>w.status === 'completed').sort((a,b)=>b.date.localeCompare(a.date));
   $('history-workouts').innerHTML = workouts.length ? `<div class="card-list">${workouts.map(w=>workoutCard(w,true)).join('')}</div>` : empty('▥','Your story starts here','Complete a workout and it will appear in your logbook.','+ Add workout','new-workout');
 }
-function render() { renderHome(); renderGluteRoutines(); renderWorkouts(); renderRunPlanOverview(); renderHabits(); renderHistory(); renderTarot(); }
+function render() { renderHome(); renderGluteRoutines(); renderWorkouts(); renderRunPlanOverview(); renderHabits(); renderHistory(); renderTarot(); renderCosmos(); }
 
 function openRunPlan() {
   $('run-plan-form').reset();
@@ -397,7 +407,7 @@ function saveHabit(event) {
   toast('Daily habit added');
 }
 function exportData() {
-  const data = JSON.stringify({app:'Tiger Track',version:2,exportedAt:new Date().toISOString(), ...store},null,2);
+  const data = JSON.stringify({app:'Tiger Track',version:5,exportedAt:new Date().toISOString(), ...store},null,2);
   const url = URL.createObjectURL(new Blob([data],{type:'application/json'}));
   const link = document.createElement('a');
   link.href = url;
@@ -412,8 +422,8 @@ async function importData(file) {
     const data = JSON.parse(await file.text());
     const valid = data && Array.isArray(data.workouts) && Array.isArray(data.habits) && data.checks && typeof data.checks === 'object' && !Array.isArray(data.checks);
     if (!valid) throw new Error('This is not a Tiger Track backup.');
-    if (!confirm('Import this backup? Your current workouts, habits, and tarot readings on this device will be replaced.')) return;
-    store = {workouts:data.workouts,habits:data.habits,checks:data.checks,tarot:data.tarot && typeof data.tarot === 'object' && !Array.isArray(data.tarot) ? data.tarot : {}};
+    if (!confirm('Import this backup? Your current workouts, habits, period records, and journal entries on this device will be replaced.')) return;
+    store = {workouts:data.workouts,habits:data.habits,checks:data.checks,tarot:data.tarot && typeof data.tarot === 'object' && !Array.isArray(data.tarot) ? data.tarot : {},cosmos:normaliseCosmosStore(data.cosmos)};
     $('settings-dialog').close();
     persist();
     toast('Backup restored');
@@ -458,8 +468,9 @@ function handleClick(event) {
     }
   }
   if (action === 'export-data') exportData();
+  if (typeof handleCosmosClick === 'function') handleCosmosClick(action,button);
   if (action === 'clear-data') {
-    if (confirm('Delete ALL workouts, habits, check-ins and tarot readings on this device? Export a backup first. This cannot be undone.')) {
+    if (confirm('Delete ALL workouts, habits, tarot readings, moon resets and period records on this device? Export a backup first. This cannot be undone.')) {
       store = defaultStore();
       selectedHabitDate = localISO();
       $('settings-dialog').close();
